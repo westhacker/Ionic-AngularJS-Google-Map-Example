@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Ionic AngularJS Google Map App</title>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no"/>
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="assets/app.css"/>
+    <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Angular Material requires Angular.js Libraries -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-animate.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-aria.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-messages.min.js"></script>
+    <!-- Angular Material Library -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angular_material/1.0.0/angular-material.min.js"></script>
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+            display: none !important;
+        }
+
+        #map {
+            height: 620pt;
+        }
+
+        .material-icons.orange800 {
+            color: royalblue;
+        }
+    </style>
+
+</head>
+
+<body ng-app="tagit" layout="row" ng-controller="UIController as ul" ng-cloak class="platform-android platform-cordova platform-webview">
+
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+            md-component-id="left"
+            ng-click="ul.toggleList()" aria-label="Show User List"
+            md-is-locked-open="$mdMedia('gt-sm')">
+
+    <md-toolbar class="md-toolbar-tools" style="background-color:royalblue;">
+        <h3>Menu</h3>
+    </md-toolbar>
+
+    <md-list style="color:royalblue;">
+        <md-list-item>
+            <md-button ng-click="ctrl.redial($event)">
+                <md-icon md-menu-align-target="" class="material-icons orange800">find_in_page</md-icon>
+                Address Search
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="ctrl.checkVoicemail()">
+                <md-icon class="material-icons orange800">bug_report</md-icon>
+                Option 1
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="ctrl.toggleNotifications()">
+                <md-icon class="material-icons orange800">explore</md-icon>
+                Option 2
+            </md-button>
+        </md-list-item>
+        <md-list-item>
+            <md-button ng-click="ctrl.toggleSettings()">
+                <md-icon class="material-icons orange800">settings</md-icon>
+                Option 3
+            </md-button>
+        </md-list-item>
+    </md-list>
+
+</md-sidenav>
+
+
+<div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+
+    <md-toolbar layout="row" class="md-whiteframe-z1" style="background-color:royalblue;">
+        <md-button id="main" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show basic fonctions"
+                   ng-show="!goSearch">
+            <md-icon md-svg-icon="menu"></md-icon>
+        </md-button>
+        <h3 ng-show="!goSearch">Ionic AngularJS Map</h3>
+
+        <md-input-container id="searchInput" class="md-icon-float md-icon-right md-block" ng-show="goSearch"
+                            ng-hide="true" sty>
+            <md-icon class="material-icons orange800" style="display:inline-block;">place</md-icon>
+            <input ng-model="user.address" placeholder="Adresse" type="text" style="">
+        </md-input-container>
+
+        <md-button id="searchButton" hide-gt-sm ng-click="goSearch=!goSearch" aria-label="Rechercher une adresse"
+                   ng-show="!goSearch">
+            <md-icon md-svg-icon="./assets/svg/search.svg"></md-icon>
+        </md-button>
+
+        <md-button id="cancelButton" hide-gt-sm ng-click="goSearch=!goSearch" aria-label="Annuler" ng-show="goSearch">
+            <md-icon class="material-icons">cancel</md-icon>
+        </md-button>
+
+    </md-toolbar>
+
+    <div id="map"></div>
+    <script async defer
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBu-OsEpaD-rp1USWCzHo5kS4LOFUcMjJY&libraries=visualization&callback=initMap">
+    </script>
+    <script src="map.js"></script>
+
+
+</div>
+
+<script src="../node_modules/angular/angular.js"></script>
+<script src="../node_modules/angular-animate/angular-animate.js"></script>
+<script src="../node_modules/angular-aria/angular-aria.js"></script>
+<script type="text/javascript" src="../node_modules/angular-material/angular-material.js"></script>
+
+<script src="./src/ui/UI.js"></script>
+<script src="./src/ui/UIController.js"></script>
+<script src="./src/ui/UIService.js"></script>
+
+<script type="text/javascript">
+
+    angular
+            .module('tagit', ['ngMaterial', 'ui'])
+            .config(
+                    function ($mdThemingProvider, $mdIconProvider) {
+
+                        $mdIconProvider
+                                .defaultIconSet("./assets/svg/avatars.svg", 128)
+                                .icon("menu", "./assets/svg/menu.svg", 24);
+
+                        $mdThemingProvider.theme('default')
+                                .primaryPalette('blue')
+                                .accentPalette('red');
+
+                    });
+
+
+</script>
+
+</body>
+</html>
