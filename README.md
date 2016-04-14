@@ -1,5 +1,5 @@
-# Ionic-AngularJS-Google-Map-App
-http://westhacker.github.io/Ionic-AngularJS-Google-Map-App
+# Ionic-AngularJS-Google-Map-Example
+http://westhacker.github.io/Ionic-AngularJS-Google-Map-Example
 
 ## Frameworks
 * Ionic Frameworks
