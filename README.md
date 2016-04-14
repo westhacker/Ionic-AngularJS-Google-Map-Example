@@ -5,6 +5,6 @@ http://westhacker.github.io/Ionic-AngularJS-Google-Map-App
 * Ionic Frameworks
 * AngularJS
 * Angular Material
-* Angular Google Map
+* GoogleMap AngularJS Directive ngmap
 
 
