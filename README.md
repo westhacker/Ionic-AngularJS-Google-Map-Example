@@ -7,4 +7,12 @@ http://westhacker.github.io/Ionic-AngularJS-Google-Map-Example
 * Angular Material
 * GoogleMap AngularJS Directive ngmap
 
+License
+----
+
+MIT
+
+
+**Free Software, Hell Yeah!**
+
 
